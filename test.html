@@ -177,6 +177,7 @@
     </div>
     <div class="product-list">
 
+<!-- পুরনোটা ডিলিট করে এইটা রাখো -->
 <div class="product-list" id="productList">
   <!-- প্রোডাক্ট গুলো এখানে যাবে -->
 </div>
@@ -264,9 +265,7 @@
     }
     showSlides();
   </script>
-  
-  <!--add product -->
-<script>
+  <script>
 document.addEventListener("DOMContentLoaded", loadProducts);
 
 function addProduct() {
@@ -291,17 +290,18 @@ function addProduct() {
       oldPrice
     };
 
-    // Save to localStorage
     const products = JSON.parse(localStorage.getItem("products") || "[]");
     products.push(product);
     localStorage.setItem("products", JSON.stringify(products));
 
     displayProduct(product);
+
+    // ✅ অ্যাড করার পর হোম পেজে নিয়ে যাও (রিলোড)
+    location.reload();
   };
 
   reader.readAsDataURL(file);
 
-  // Reset form
   imageInput.value = '';
   document.getElementById("productName").value = '';
   document.getElementById("productPrice").value = '';
@@ -316,7 +316,7 @@ function displayProduct(product) {
   newProduct.innerHTML = `
     <img src="${product.image}" />
     <h3>${product.name}</h3>
-    <h4>$${product.price} ${product.oldPrice ? <del>$${product.oldPrice}</del> : ''}</h4>
+    <h4>$${product.price} ${product.oldPrice ? `<del>$${product.oldPrice}</del>` : ''}</h4>
   `;
 
   productList.appendChild(newProduct);
@@ -328,5 +328,6 @@ function loadProducts() {
 }
 </script>
 
+  
 </body>
 </html>
