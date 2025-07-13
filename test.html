@@ -144,23 +144,42 @@
     #fileInput {
       display: none;    
     }
+    #profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  border: 3px solid red;
+  object-fit: cover;
+}
+
+/* মোবাইল ভার্সনের জন্য */
+@media (max-width: 600px) {
+  #profileImage {
+    width: 100px;
+    height: 100px;
+  }
+}
+
   </style>
 </head>
 <body>
   <div class="container">
     <div class="search">
         <a href="assis.html"><i class="fa-regular fa-user"></i></a>
-      NAME:<input type="name" placeholder="you name">
-      <br>id:<input type="id" placeholder="id number">
+      
 <div class="profile-container">
-    <h2>Customer Profile</h2>
-    
-    <!-- ছবির জন্য ইমেজ ট্যাগ -->
-    <img id="profileImage" src="https://via.placeholder.com/150" alt="Customer Image">
-
+   
+     <!-- ছবির জন্য ইমেজ ট্যাগ -->
+    <img id="profileImage" src="https://via.placeholder.com/150" alt="">
     <!-- হিডেন ফাইল ইনপুট -->
     <input type="file" id="fileInput" accept="image/*">
   </div>
+
+
+<!--input type Name id -->
+      NAME:<input type="name" placeholder="you name">
+      
+
       <div class="custom-select" onclick="toggleDropdown()">
         <div class="selected" id="selected-item">menu</div>
         <div class="options" id="options">
