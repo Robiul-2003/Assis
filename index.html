@@ -165,7 +165,7 @@
 <body>
   <div class="container">
     <div class="search">
-        <a href="assis.html"><i class="fa-regular fa-user"></i></a>
+        <a href="try.html"><i class="fa-regular fa-user"></i></a>
       <h1>Robiul.com</h1>
       <input type="text" id="find" placeholder="Search here..." onkeyup="search()">
 
@@ -214,11 +214,15 @@
         <h2>Contact Us</h2>
         <p>House #8, Road #14<br>Dhanmondi, Dhaka-1209</p>
         <p>Email: support@robiul.com</p>
+        <nev>oihfgi</nev>
         <p>Phone: 01319992654</p>
       </div>
       <div>
         <h3>Let Us Help You</h3>
         <p>Your Account<br>Your Orders<br>Terms & Conditions<br>Return Policy</p>
+
+
+        <nav>Robiul awla</nav>
       </div>
     </div>
   </div>
@@ -272,7 +276,7 @@ function displayProduct(product) {
   newProduct.innerHTML = `
     <img src="${product.image}" />
     <h3>${product.name}</h3>
-    <h4>$${product.price} ${product.oldPrice ? `<del>$${product.oldPrice}</del>` : ''}</h4>
+    <h4>$${product.price} ${product.oldPrice ? <del>$${product.oldPrice}</del> : ''}</h4>
   `;
 
   productList.appendChild(newProduct);
