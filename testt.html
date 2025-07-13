@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robiul</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; }
+
+    .container { max-width: 1200px; margin: auto; padding: 10px; }
+
+    .search {
+      position: relative;
+      text-align: center;
+      margin-bottom: 20px;
+      
+    }
+
+    .search h1 {
+      color: rgb(114, 49, 38);
+      font-size: 32px;
+     
+    }
+
+    .search input {
+      width: 60%;
+      min-height: 40px;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .custom-select {
+      position: absolute;
+      right: 10px;
+      top:0px;
+    }
+
+    .selected {
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      background: #f2f2f2;
+    }
+
+    .options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 200px;
+      background-color: white;
+      z-index: 10;
+      border: 1px solid #ccc;
+    }
+
+    .options div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .options div:hover {
+      background-color: #ddd;
+    }
+
+    .options i {
+      margin-right: 8px;
+      color: green;
+    }
+
+    .slideshow-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .mySlides { display: none; }
+
+    .mySlides img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .dot-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      height: 15px;
+      width: 15px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+
+    .active { background-color: #717171; }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .product {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 200px;
+      padding: 10px;
+      text-align: center;
+      background-color: #f9f9f9;
+      transition: transform 0.3s;
+    }
+
+    .product:hover { transform: scale(1.05); }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product h3 { margin: 10px 0 5px; }
+
+    .product h4 { color: green; }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      background-color: rgb(36, 32, 32);
+      color: white;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    .details div {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    .details h1, .details h2, .details h3, .details h6 {
+      margin-bottom: 10px;
+    }
+
+    .details a {
+      color: white;
+      font-size: 24px;
+      margin-right: 10px;
+    }
+    .fa-regular{
+       
+        display: flex;
+        
+
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="search">
+        <a href="assis.html"><i class="fa-regular fa-user"></i></a>
+      <h1>Robiul.com</h1>
+      <input type="text" id="find" placeholder="Search here..." onkeyup="search()">
+
+      <div class="custom-select" onclick="toggleDropdown()">
+        <div class="selected" id="selected-item">menu</div>
+        <div class="options" id="options">
+          <div><i class="fas fa-truck"></i> Tempu</div>
+          <div><i class="fas fa-bicycle"></i> Cycle</div>
+          <div><i class="fas fa-motorcycle"></i> Bike</div>
+          <div><i class="fas fa-car"></i> Car</div>
+          <div><i class="fas fa-bus"></i> Bus</div>
+          <div><i class="fas fa-truck-moving"></i> Truck</div>
+          <div><i class="fas fa-shuttle-van"></i> Pickup</div>
+          <div><i class="fas fa-train"></i> Train</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slideshow-container">
+      <div class="mySlides"><img src="book img.jpg" /></div>
+      <div class="mySlides"><img src="laptop.avif" /></div>
+      <div class="mySlides"><img src="lachchi.jpg" /></div>
+    </div>
+    <div class="dot-container">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <div class="product-list">
+      <div class="product"><img src="bike.jpg" /><h3>Bike</h3><h4>$100.00 <del>$120.00</del></h4></div>
+      <div class="product"><img src="car.jpeg" /><h3>Car</h3><h4>$200.00 <del>$250.00</del></h4></div>
+      <div class="product"><img src="watch.jpg" /><h3>Watch</h3><h4>$50.00 <del>$60.00</del></h4></div>
+      <div class="product"><img src="pant.jpg" /><h3>Pant</h3><h4>$30.00 <del>$40.00</del></h4></div>
+    </div>
+
+    <div class="details">
+      <div>
+        <h1>Robiul.com</h1>
+        <h6>Largest product search engine<br>Fastest delivery & online shop</h6>
+        <h2>Follow Us:
+          <a href="#"><i class="fab fa-facebook-square"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </h2>
+      </div>
+      <div>
+        <h2>Contact Us</h2>
+        <p>House #8, Road #14<br>Dhanmondi, Dhaka-1209</p>
+        <p>Email: support@robiul.com</p>
+        <p>Phone: 01319992654</p>
+      </div>
+      <div>
+        <h3>Let Us Help You</h3>
+        <p>Your Account<br>Your Orders<br>Terms & Conditions<br>Return Policy</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const options = document.getElementById("options");
+      options.style.display = (options.style.display === "block") ? "none" : "block";
+    }
+
+    function search() {
+      let filter = document.getElementById('find').value.toUpperCase();
+      let item = document.querySelectorAll('.product');
+      let l = document.getElementsByTagName('h3');
+      for (let i = 0; i < l.length; i++) {
+        let a = item[i].getElementsByTagName('h3')[0];
+        let value = a.innerHTML || a.innerText || a.textContent;
+        item[i].style.display = value.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+      }
+    }
+
+    let slideIndex = 0;
+    function showSlides() {
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      setTimeout(showSlides, 2000);
+    }
+    showSlides();
+  </script>
+
+
+<!--customer serves-->
+<script>
+document.addEventListener("DOMContentLoaded", loadProducts);
+
+function displayProduct(product) {
+  const productList = document.querySelector(".product-list");
+  const newProduct = document.createElement("div");
+  newProduct.classList.add("product");
+
+  newProduct.innerHTML = `
+    <img src="${product.image}" />
+    <h3>${product.name}</h3>
+    <h4>$${product.price} ${product.oldPrice ? `<del>$${product.oldPrice}</del>` : ''}</h4>
+  `;
+
+  productList.appendChild(newProduct);
+}
+
+function loadProducts() {
+  const products = JSON.parse(localStorage.getItem("products") || "[]");
+  products.forEach(displayProduct);
+}
+</script>
+
+</body>
+</html>
