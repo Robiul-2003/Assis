@@ -69,39 +69,6 @@
       margin-right: 8px;
       color: green;
     }
-
-    .slideshow-container {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      margin: 20px 0;
-    }
-
-    .mySlides { display: none; }
-
-    .mySlides img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-    }
-
-    .dot-container {
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .dot {
-      height: 15px;
-      width: 15px;
-      margin: 0 4px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.6s ease;
-    }
-
-    .active { background-color: #717171; }
-
     .product-list {
       display: flex;
       flex-wrap: wrap;
@@ -157,18 +124,43 @@
     .fa-regular{
        
         display: flex;
-        
+    }
 
+    /* img add */
+    .profile-container {
+      text-align: center;
+      margin-top: 50px;
+      
+    }
+    #profileImage {
+      
+      border-radius:100px;
+      border:3px solid red;
+      text-align: center;
+      margin-top: 50px;
+      
+    }
+
+    #fileInput {
+      display: none;    
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="search">
-        <a href="try.html"><i class="fa-regular fa-user"></i></a>
-      <h1>Robiul.com</h1>
-      <input type="text" id="find" placeholder="Search here..." onkeyup="search()">
+        <a href="assis.html"><i class="fa-regular fa-user"></i></a>
+      NAME:<input type="name" placeholder="you name">
+      <br>id:<input type="id" placeholder="id number">
+<div class="profile-container">
+    <h2>Customer Profile</h2>
+    
+    <!-- ছবির জন্য ইমেজ ট্যাগ -->
+    <img id="profileImage" src="https://via.placeholder.com/150" alt="Customer Image">
 
+    <!-- হিডেন ফাইল ইনপুট -->
+    <input type="file" id="fileInput" accept="image/*">
+  </div>
       <div class="custom-select" onclick="toggleDropdown()">
         <div class="selected" id="selected-item">menu</div>
         <div class="options" id="options">
@@ -183,17 +175,19 @@
         </div>
       </div>
     </div>
-
-    <div class="slideshow-container">
-      <div class="mySlides"><img src="book img.jpg" /></div>
-      <div class="mySlides"><img src="laptop.avif" /></div>
-      <div class="mySlides"><img src="lachchi.jpg" /></div>
-    </div>
-    <div class="dot-container">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-    </div>
-
     <div class="product-list">
+
+<div class="product-list" id="productList">
+  <!-- প্রোডাক্ট গুলো এখানে যাবে -->
+</div>
+<div class="product-form" style="margin: 30px auto; text-align: center;">
+  <h2>Add Your Product</h2>
+  <input type="file" id="productImageInput" accept="image/*"><br><br>
+  <input type="text" id="productName" placeholder="Product Name"><br><br>
+  <input type="text" id="productPrice" placeholder="Price (e.g., 100.00)"><br><br>
+  <input type="text" id="productOldPrice" placeholder="Old Price (optional)"><br><br>
+  <button onclick="addProduct()">Add Product</button>
+</div>
       <div class="product"><img src="bike.jpg" /><h3>Bike</h3><h4>$100.00 <del>$120.00</del></h4></div>
       <div class="product"><img src="car.jpeg" /><h3>Car</h3><h4>$200.00 <del>$250.00</del></h4></div>
       <div class="product"><img src="watch.jpg" /><h3>Watch</h3><h4>$50.00 <del>$60.00</del></h4></div>
@@ -223,24 +217,36 @@
     </div>
   </div>
 
+ <script>
+    // ইমেজে ক্লিক করলে ফাইল ইনপুট খোলে
+    const profileImage = document.getElementById("profileImage");
+    const fileInput = document.getElementById("fileInput");
+
+    profileImage.addEventListener("click", () => {
+      fileInput.click();
+    });
+
+    // ফাইল সিলেক্ট হলে ইমেজ চেঞ্জ করে
+    fileInput.addEventListener("change", function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          profileImage.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+      }
+    });  
+  </script> 
+
   <script>
-    function toggleDropdown() {
+   function toggleDropdown() {
       const options = document.getElementById("options");
       options.style.display = (options.style.display === "block") ? "none" : "block";
     }
-
-    function search() {
-      let filter = document.getElementById('find').value.toUpperCase();
-      let item = document.querySelectorAll('.product');
-      let l = document.getElementsByTagName('h3');
-      for (let i = 0; i < l.length; i++) {
-        let a = item[i].getElementsByTagName('h3')[0];
-        let value = a.innerHTML || a.innerText || a.textContent;
-        item[i].style.display = value.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-      }
-    }
-
-    let slideIndex = 0;
+ let slideIndex = 0;
     function showSlides() {
       let slides = document.getElementsByClassName("mySlides");
       let dots = document.getElementsByClassName("dot");
@@ -258,14 +264,52 @@
     }
     showSlides();
   </script>
-
-
-<!--customer serves-->
+  
+  <!--add product -->
 <script>
 document.addEventListener("DOMContentLoaded", loadProducts);
 
+function addProduct() {
+  const imageInput = document.getElementById("productImageInput");
+  const name = document.getElementById("productName").value;
+  const price = document.getElementById("productPrice").value;
+  const oldPrice = document.getElementById("productOldPrice").value;
+  const productList = document.getElementById("productList");
+
+  const file = imageInput.files[0];
+  if (!file || !name || !price) {
+    alert("Image, Name & Price Required!");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const product = {
+      image: e.target.result,
+      name,
+      price,
+      oldPrice
+    };
+
+    // Save to localStorage
+    const products = JSON.parse(localStorage.getItem("products") || "[]");
+    products.push(product);
+    localStorage.setItem("products", JSON.stringify(products));
+
+    displayProduct(product);
+  };
+
+  reader.readAsDataURL(file);
+
+  // Reset form
+  imageInput.value = '';
+  document.getElementById("productName").value = '';
+  document.getElementById("productPrice").value = '';
+  document.getElementById("productOldPrice").value = '';
+}
+
 function displayProduct(product) {
-  const productList = document.querySelector(".product-list");
+  const productList = document.getElementById("productList");
   const newProduct = document.createElement("div");
   newProduct.classList.add("product");
 
