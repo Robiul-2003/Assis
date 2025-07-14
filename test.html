@@ -159,7 +159,28 @@
     height: 100px;
   }
 }
+/* x tag */
+.fa-solid.fa-xmark{
+  color:red;
+  margin-right:160px;
+  font-size:20px;
+  margin-top:20px;
+}
 
+.name-box {
+  text-align: center; /* input কে সেন্টারে আনবে */
+  margin: 10px 0;
+}
+
+#customerName {
+  border: none;             /* বর্ডার তুলে দেওয়া হলো */
+  border-bottom: px solid ; /* চাইলে শুধু নিচে বর্ডার রাখতে পারো */
+  padding:0px;
+  font-size:24px;
+  width:60%;               /* ইনপুটের প্রস্থ */
+  text-align: center;       /* ইনপুট টেক্সটও সেন্টারে */
+  outline: none;            /* ফোকাসে ব্লু বর্ডার উঠে যাবে */
+}
   </style>
 </head>
 <body>
@@ -168,21 +189,24 @@
         <a href="assis.html"><i class="fa-regular fa-user"></i></a>
       
 <div class="profile-container">
-   
-     <!-- ছবির জন্য ইমেজ ট্যাগ -->
-    <img id="profileImage" src="https://via.placeholder.com/150" alt="">
-    <!-- হিডেন ফাইল ইনপুট -->
-    <input type="file" id="fileInput" accept="image/*">
-  </div>
+  <img id="profileImage" src="https://via.placeholder.com/150" alt="">
+  <input type="file" id="fileInput" accept="image/*">
+</div>
+
 
 
 <!--input type Name id -->
-      NAME:<input type="name" placeholder="you name">
+   <div class="name-box">
+   <input type="text" id="customerName" placeholder="your name">
+</div>
+
+
       
 
       <div class="custom-select" onclick="toggleDropdown()">
         <div class="selected" id="selected-item">menu</div>
         <div class="options" id="options">
+             <i class="fa-solid fa-xmark"></i>
           <div><i class="fas fa-truck"></i> Tempu</div>
           <div><i class="fas fa-bicycle"></i> Cycle</div>
           <div><i class="fas fa-motorcycle"></i> Bike</div>
@@ -191,6 +215,7 @@
           <div><i class="fas fa-truck-moving"></i> Truck</div>
           <div><i class="fas fa-shuttle-van"></i> Pickup</div>
           <div><i class="fas fa-train"></i> Train</div>
+          <div><i class="fa-solid fa-gear"></i> setting</div>
         </div>
       </div>
     </div>
@@ -261,6 +286,35 @@
     });  
   </script> 
 
+<script>
+// DOM লোড হলে LocalStorage থেকে ইমেজ লোড করো
+window.addEventListener("DOMContentLoaded", function () {
+  const savedImage = localStorage.getItem("profileImage");
+  if (savedImage) {
+    document.getElementById("profileImage").src = savedImage;
+  }
+});
+
+// ইমেজ ক্লিক করলে ফাইল ইনপুট খুলবে
+document.getElementById("profileImage").addEventListener("click", function () {
+  document.getElementById("fileInput").click();
+});
+
+// নতুন ইমেজ সিলেক্ট করলে সেটি দেখাও এবং LocalStorage-এ সেভ করো
+document.getElementById("fileInput").addEventListener("change", function () {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const imageSrc = e.target.result;
+      document.getElementById("profileImage").src = imageSrc;
+      localStorage.setItem("profileImage", imageSrc); // ✅ Local Storage-এ সেভ
+    };
+    reader.readAsDataURL(file);
+  }
+});
+</script>
+
   <script>
    function toggleDropdown() {
       const options = document.getElementById("options");
@@ -284,6 +338,7 @@
     }
     showSlides();
   </script>
+
   <script>
 document.addEventListener("DOMContentLoaded", loadProducts);
 
@@ -346,6 +401,23 @@ function loadProducts() {
   products.forEach(displayProduct);
 }
 </script>
+<!--inpute type -->
+<script>
+// পেজ লোড হলে নাম রিস্টোর করো
+window.addEventListener('DOMContentLoaded', function () {
+  const savedName = localStorage.getItem("customerName");
+  if (savedName) {
+    document.getElementById("customerName").value = savedName;
+  }
+});
+
+// নাম টাইপ করলে সাথে সাথে সংরক্ষণ করো
+document.getElementById("customerName").addEventListener("input", function () {
+  localStorage.setItem("customerName", this.value);
+});
+</script>
+
+
 
   
 </body>
