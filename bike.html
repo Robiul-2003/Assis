@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bike Products</title>
+</head>
+<body>
+  <h1>Bike Products</h1>
+  <div id="productList"></div>
+  <a href="index.html">Back to Home</a>
+
+  <script>
+    function displayProduct(product) {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <img src="${product.image}" width="100"><br>
+        <strong>${product.name}</strong><br>
+        <span>Price: $${product.price}</span><br><hr>
+      `;
+      document.getElementById("productList").appendChild(div);
+    }
+
+    function loadCategoryProducts() {
+      const products = JSON.parse(localStorage.getItem("products") || "[]");
+      const filtered = products.filter(p => p.category === "bike");
+      filtered.forEach(displayProduct);
+    }
+
+    loadCategoryProducts();
+  </script>
+</body>
+</html>
