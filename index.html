@@ -8,9 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; 
-    background-color:tomato;
-    }
+    body { font-family: Arial, sans-serif;}
 
     .container { max-width: 1200px; margin: auto; padding: 10px; }
 
@@ -68,7 +66,7 @@
     .product {
       border: 1px solid #ccc;
       border-radius: 10px;
-      width: 200px;
+      width: 165px;
       padding: 10px;
       text-align: center;
       background-color: #f9f9f9;
@@ -87,6 +85,7 @@
       color: white;
       padding: 20px;
       margin-top: 50px;
+      
     }
 
     .details div {
@@ -103,7 +102,13 @@
 <body>
   <div class="container">
     <div class="search">
-      <a href="test.html"><i class="fa-regular fa-user"></i></a>
+<!-- user icon-এর জন্য image -->
+<a href="customer.html">
+  <img id="profileIconHome" src="https://via.placeholder.com/40" alt="User" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid red; float:left; margin-right:10px;">
+</a>
+
+      
+
       <h1><img  src="sadalogo.png" width="30px" height="30px">SSISTANT</h1>
       <input type="text" id="find" placeholder="Search here..." onkeyup="search()">
 
@@ -152,8 +157,8 @@
         <p>Phone: 01319992654</p>
       </div>
       <div>
-        <h3>Let Us Help You</h3>
-        <p>Your Account<br>Your Orders<br>Terms & Conditions<br>Return Policy</p>
+        <h3></h3>
+        <p><br><br></p>
       </div>
     </div>
   </div>
@@ -213,6 +218,24 @@
       const products = JSON.parse(localStorage.getItem("products") || "[]");
       products.forEach(displayProduct);
     }
+
+// Load profile image from localStorage on home page
+window.addEventListener("DOMContentLoaded", function () {
+  const savedImage = localStorage.getItem("profileImage");
+  if (savedImage) {
+    const profileIcon = document.getElementById("profileIconHome");
+    if (profileIcon) {
+      profileIcon.src = savedImage;
+    }
+  }
+});
+
+
+
+
+
+
+
   </script>
 </body>
 </html>

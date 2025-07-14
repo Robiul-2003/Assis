@@ -8,7 +8,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: Arial, sans-serif;
-    background-color:tomato;
+    background-color:;
     }
 
     .container { max-width: 1200px; margin: auto; padding: 10px; }
@@ -81,7 +81,7 @@
     .product {
       border: 1px solid #ccc;
       border-radius: 10px;
-      width: 200px;
+      width: 165px;
       padding: 10px;
       text-align: center;
       background-color: #f9f9f9;
@@ -183,12 +183,48 @@
   text-align: center;       /* ইনপুট টেক্সটও সেন্টারে */
   outline: none;            /* ফোকাসে ব্লু বর্ডার উঠে যাবে */
 }
+.top-profile {
+  position: absolute;
+  top: 10px;
+  left:0px;
+}
+
+#profileIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border:2px red solid ;
+  /* border: none; এর দরকার নেই কারণ border দেয়া হয়নি */
+}
+#profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  /* border: 3px solid red; */ /* ❌ এটা সরিয়ে দিন */
+  object-fit: cover;
+  margin-top: 50px;
+}
+.profile-container {
+  /* text-align: center; ❌ এটা চাইলে সরিয়ে দিতে পারেন */
+  margin-top:0px;
+}
+
+
+
+
   </style>
 </head>
 <body>
   <div class="container">
     <div class="search">
-        <a href="#"><i class="fa-regular fa-user"></i></a>
+     <!-- ছোট প্রোফাইল আইকন ডান পাশে -->
+<div class="top-profile">
+  <a href="#" id="profileIconLink">
+    <img id="profileIcon" src="https://via.placeholder.com/40" alt="Profile" />
+  </a>
+</div>
+
       
 <div class="profile-container">
   <img id="profileImage" src="https://via.placeholder.com/150" alt="">
@@ -266,86 +302,65 @@
     </div>
   </div>
 
- <script>
-    // ইমেজে ক্লিক করলে ফাইল ইনপুট খোলে
-    const profileImage = document.getElementById("profileImage");
-    const fileInput = document.getElementById("fileInput");
-
-    profileImage.addEventListener("click", () => {
-      fileInput.click();
-    });
-
-    // ফাইল সিলেক্ট হলে ইমেজ চেঞ্জ করে
-    fileInput.addEventListener("change", function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-          profileImage.src = e.target.result;
-        }
-
-        reader.readAsDataURL(file);
-      }
-    });  
-  </script> 
-
+ 
 <script>
-// DOM লোড হলে LocalStorage থেকে ইমেজ লোড করো
+// DOMContentLoaded: প্রোফাইল ইমেজ, নাম, প্রোডাক্ট লোড করবে
 window.addEventListener("DOMContentLoaded", function () {
+  // প্রোফাইল ইমেজ লোড
   const savedImage = localStorage.getItem("profileImage");
   if (savedImage) {
     document.getElementById("profileImage").src = savedImage;
+    document.getElementById("profileIcon").src = savedImage;
   }
+
+  // নাম লোড
+  const savedName = localStorage.getItem("customerName");
+  if (savedName) {
+    document.getElementById("customerName").value = savedName;
+  }
+
+  // প্রোডাক্ট লোড
+  loadProducts();
 });
 
-// ইমেজ ক্লিক করলে ফাইল ইনপুট খুলবে
+// প্রোফাইল ইমেজ ক্লিক করলে ফাইল ইনপুট খোলে
 document.getElementById("profileImage").addEventListener("click", function () {
   document.getElementById("fileInput").click();
 });
 
-// নতুন ইমেজ সিলেক্ট করলে সেটি দেখাও এবং LocalStorage-এ সেভ করো
+// ফাইল ইনপুট থেকে ছবি সিলেক্ট করলে সেটি প্রোফাইলে এবং আইকনে বসায়
 document.getElementById("fileInput").addEventListener("change", function () {
   const file = this.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
       const imageSrc = e.target.result;
+
+      // বড় প্রোফাইলে বসায়
       document.getElementById("profileImage").src = imageSrc;
-      localStorage.setItem("profileImage", imageSrc); // ✅ Local Storage-এ সেভ
+
+      // ছোট আইকনেও বসায়
+      document.getElementById("profileIcon").src = imageSrc;
+
+      // LocalStorage-এ সেভ করে
+      localStorage.setItem("profileImage", imageSrc);
     };
     reader.readAsDataURL(file);
   }
 });
-</script>
 
-  <script>
-   function toggleDropdown() {
-      const options = document.getElementById("options");
-      options.style.display = (options.style.display === "block") ? "none" : "block";
-    }
- let slideIndex = 0;
-    function showSlides() {
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("dot");
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }
-      for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].className += " active";
-      setTimeout(showSlides, 2000);
-    }
-    showSlides();
-  </script>
+// নাম টাইপ করলে localStorage-এ সেভ হয়
+document.getElementById("customerName").addEventListener("input", function () {
+  localStorage.setItem("customerName", this.value);
+});
 
-  <script>
-document.addEventListener("DOMContentLoaded", loadProducts);
+// ড্রপডাউন মেনু টগল
+function toggleDropdown() {
+  const options = document.getElementById("options");
+  options.style.display = (options.style.display === "block") ? "none" : "block";
+}
 
+// প্রোডাক্ট অ্যাড ফাংশন
 function addProduct() {
   const imageInput = document.getElementById("productImageInput");
   const name = document.getElementById("productName").value;
@@ -374,18 +389,20 @@ function addProduct() {
 
     displayProduct(product);
 
-    // ✅ অ্যাড করার পর হোম পেজে নিয়ে যাও (রিলোড)
+    // রিলোড দিয়ে রিফ্রেশ করে
     location.reload();
   };
 
   reader.readAsDataURL(file);
 
+  // ইনপুট রিসেট
   imageInput.value = '';
   document.getElementById("productName").value = '';
   document.getElementById("productPrice").value = '';
   document.getElementById("productOldPrice").value = '';
 }
 
+// প্রোডাক্ট ডিসপ্লে করে
 function displayProduct(product) {
   const productList = document.getElementById("productList");
   const newProduct = document.createElement("div");
@@ -400,27 +417,20 @@ function displayProduct(product) {
   productList.appendChild(newProduct);
 }
 
+// লোড টাইমে প্রোডাক্ট দেখানো
 function loadProducts() {
   const products = JSON.parse(localStorage.getItem("products") || "[]");
   products.forEach(displayProduct);
 }
-</script>
-<!--inpute type -->
-<script>
-// পেজ লোড হলে নাম রিস্টোর করো
-window.addEventListener('DOMContentLoaded', function () {
-  const savedName = localStorage.getItem("customerName");
-  if (savedName) {
-    document.getElementById("customerName").value = savedName;
-  }
-});
 
-// নাম টাইপ করলে সাথে সাথে সংরক্ষণ করো
-document.getElementById("customerName").addEventListener("input", function () {
-  localStorage.setItem("customerName", this.value);
-});
-</script>
+// ছবিটি profileImage এবং profileIcon-এ বসানো হচ্ছে
+document.getElementById("profileImage").src = imageSrc;
+document.getElementById("profileIcon").src = imageSrc;
 
+// LocalStorage এ সংরক্ষণ
+localStorage.setItem("profileImage", imageSrc);
+
+</script>
 
 
   
